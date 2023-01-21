@@ -1,5 +1,6 @@
 using InventariesWebAPI.Database;
 using InventariesWebAPI.Services.CategoriesService;
+using InventariesWebAPI.Services.CustomerService.cs;
 using InventariesWebAPI.Services.ProductsService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSqlServer<InventariesDbContext>(builder.Configuration.GetConnectionString("Inventaries"));
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+
 builder.Services.AddCors(options => {
   options.AddPolicy("MyPolicy", policy => {
     policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod();
