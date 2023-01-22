@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace InventariesWebAPI.Domain.Entities {
   [Table("Transaction")]
   public class Transaction {
-    [Key] public string Id { get; set; } = "";
+    [Key] public string Id { get; set; } = Guid.NewGuid().ToString();
     
-    public int BillingNumber { get; set; } = 0;
+    public string Bill { get; set; } = "";
 
-    public String Product { get; set; } = "";
+    public string Product { get; set; } = "";
 
-    public decimal Discount { get; set; } = 0;
+    public int Units { get; set; } = 0;
+
+    public decimal? Discount { get; set; }
 
     public decimal UnitPrice { get; set; } = 0;
 

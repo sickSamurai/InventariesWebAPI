@@ -2,7 +2,7 @@
 
 namespace InventariesWebAPI.Domain.Responses {
   public class BillObject {
-    public int Id { get; set; } = 0;
+    public string Id { get; set; } = "";       
 
     public CustomerObject Customer { get; set; } = new CustomerObject();
 

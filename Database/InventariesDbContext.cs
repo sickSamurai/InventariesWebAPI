@@ -4,7 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventariesWebAPI.Database {
   public class InventariesDbContext : DbContext {
-    public InventariesDbContext(DbContextOptions<InventariesDbContext> options) : base(options) { }
+    public InventariesDbContext(DbContextOptions<InventariesDbContext> options) : base(options) { 
+      if(this.Database.CanConnect()) {
+        Console.WriteLine("Can Connect");
+      }
+    }
 
     public DbSet<Product> Products { get; set; }
 

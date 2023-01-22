@@ -6,6 +6,8 @@ namespace InventariesWebAPI.Services.ProductsService {
     
     Task<ProductObject[]> GetByCategory(string CategoryId);
 
+    Task<ProductObject> GetById(String Id);
+
     Task<DbResponse> Create(ProductObject product);
     
     Task<DbResponse> Edit(ProductObject product);    

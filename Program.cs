@@ -1,7 +1,10 @@
 using InventariesWebAPI.Database;
+using InventariesWebAPI.Services.BillsService.cs;
 using InventariesWebAPI.Services.CategoriesService;
 using InventariesWebAPI.Services.CustomerService.cs;
+using InventariesWebAPI.Services.DailyReportService.cs;
 using InventariesWebAPI.Services.ProductsService;
+using InventariesWebAPI.Services.TransactionsService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,9 @@ builder.Services.AddSqlServer<InventariesDbContext>(builder.Configuration.GetCon
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IBillsService, BillsService>();
+builder.Services.AddScoped<ITransactionsService, TransactionsService>();
+builder.Services.AddScoped<IDailyReportService, DailyReportService>();
 
 builder.Services.AddCors(options => {
   options.AddPolicy("MyPolicy", policy => {

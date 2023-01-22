@@ -95,5 +95,24 @@ namespace InventariesWebAPI.Services.ProductsService {
 
       return Products.ToArray();
     }
+
+    public async Task<ProductObject> GetById(string Id) {
+      var ProductDTO = await DbContext.Products.FindAsync(Id);      
+      if(ProductDTO == null) throw new Exception("The product don't exists");
+      return new ProductObject {
+        Id = ProductDTO.Id,
+        Name = ProductDTO.Name,
+        Description = ProductDTO.Description,
+        Category = await CategoriesService.GetById(ProductDTO.Category),
+        Price = ProductDTO.Price,
+        Stock = ProductDTO.Stock,
+        Status = ProductDTO.Status
+      };
+    }
   }
+
+
+
+
+
 }

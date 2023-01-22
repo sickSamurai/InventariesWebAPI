@@ -5,13 +5,13 @@ namespace InventariesWebAPI.Domain.Entities {
 
   [Table("Bill")]
   public class Bill {
-    [Key] public int Id { get; set; } = 0;
-    
+    [Key] public string Id { get; set; } = Guid.NewGuid().ToString();
+        
     public string Customer { get; set; } = "";
 
-    public DateTime CreationDate { get; set; } = new DateTime();
+    public DateTime CreationDate { get; set; } = DateTime.Today;
 
-    public DateTime ExpirationDate { get; set; } = new DateTime();
+    public DateTime ExpirationDate { get; set; } = DateTime.Today.AddDays(365);
 
     public string Observations { get; set; } = "";
 
