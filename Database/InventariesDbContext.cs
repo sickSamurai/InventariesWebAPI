@@ -7,8 +7,7 @@ namespace InventariesWebAPI.Database {
     private IConfiguration configuration;
     public InventariesDbContext(DbContextOptions<InventariesDbContext> options, IConfiguration configuration) : base(options) { 
       this.configuration = configuration;
-      if(!this.Database.CanConnect()) new ScriptLoader(configuration).LoadScript();
-      
+      if(!this.Database.CanConnect()) new ScriptLoader(configuration).LoadScript();      
     }
 
     public DbSet<Product> Products { get; set; }

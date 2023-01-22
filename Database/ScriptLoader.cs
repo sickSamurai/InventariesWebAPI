@@ -13,15 +13,17 @@
     }
     
     public void LoadScript() {
-      
-      string? sqlConnectionString = Configuration.GetConnectionString("Inventaries");
 
-      string script = File.ReadAllText(@"C:\InventariesDB.sql");
+      var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resources\InventariesDb.sql"));
+
+      string? sqlConnectionString = Configuration.GetConnectionString("SqlServer");
+
+      string script = File.ReadAllText(path);
 
       var connection = new SqlConnection(sqlConnectionString);
       
-      Server server = new Server(new ServerConnection(connection));
-
+      Server server = new Server(new ServerConnection(connection));           
+      
       server.ConnectionContext.ExecuteNonQuery(script);
     }
   }
