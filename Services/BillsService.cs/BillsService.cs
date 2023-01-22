@@ -21,7 +21,7 @@ namespace InventariesWebAPI.Services.BillsService.cs {
 
     public async Task<TransactionResults[]> Create(BillToSaveObject Bill) {
       try {
-        var TransactionsResults = await ValidateTransactions(Bill.Transactions);
+        var TransactionsResults = await ValidateTransactionsByStockDisponibility(Bill.Transactions);
 
         foreach(var Result in TransactionsResults)
           if(!Result.ProductAvailable) return TransactionsResults;
@@ -45,11 +45,7 @@ namespace InventariesWebAPI.Services.BillsService.cs {
       } catch(Exception ex) {
         return Array.Empty<TransactionResults>();
       }
-    }
-
-    public Task<DbResponse> Edit(BillObject Bill) {
-      throw new NotImplementedException();
-    }
+    } 
 
     public async Task<BillObject[]> GetByCreationDate(DateTime Date) {
       var BillsByDate = new List<BillObject>();
@@ -70,15 +66,16 @@ namespace InventariesWebAPI.Services.BillsService.cs {
 
     }
 
-    public async Task<TransactionResults[]> ValidateTransactions(TransactionToSaveObject[] Transactions) {
+    public async Task<TransactionResults[]> ValidateTransactionsByStockDisponibility(TransactionToSaveObject[] Transactions) {
       try {
-        var TransactionsResponses = new List<TransactionResults>();
+        var TransactionsResults = new List<TransactionResults>();
         foreach(var Transaction in Transactions)
-          TransactionsResponses.Add(await TransactionsService.ValidateTransaction(Transaction));
-        return TransactionsResponses.ToArray();
+          TransactionsResults.Add(await TransactionsService.ValidateTransaction(Transaction));
+        return TransactionsResults.ToArray();
       } catch(Exception ex) {
         return Array.Empty<TransactionResults>();
       }
     }
+    
   }
 }

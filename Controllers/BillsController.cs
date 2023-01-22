@@ -15,12 +15,6 @@ namespace InventariesWebAPI.Controllers {
       BillsService = billsService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetByCreationDate(DateTime CreationDate) {
-      var Response = await BillsService.GetByCreationDate(CreationDate);
-      return Ok(Response);
-    }
-
     [HttpPost]
     public async Task<IActionResult> Create(BillToSaveObject Bill) {
       var Response = await BillsService.Create(Bill);

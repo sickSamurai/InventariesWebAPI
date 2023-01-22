@@ -20,7 +20,7 @@ namespace InventariesWebAPI.Services.TransactionsService {
         var ProductToSell = await ProductsService.GetById(Transaction.Product);
         ProductToSell.Stock -= Transaction.Units;
         await ProductsService.Edit(ProductToSell);
-        var UnitPrice = GetUnitPrice(ProductToSell, Transaction.Discount);
+        var UnitPrice = await GetUnitPrice(Transaction);
         DbContext.Transactions.Add(new Transaction {
           Bill = BillId,
           Product = Transaction.Product,
@@ -35,8 +35,10 @@ namespace InventariesWebAPI.Services.TransactionsService {
       }
     }
 
-    public decimal GetUnitPrice(ProductObject Product, decimal? Discount) {      
-      if(Discount == null || Discount == 0) return Product.Price;
+    public async Task<decimal> GetUnitPrice(TransactionToSaveObject TransactionToSave) {
+      var Product = await ProductsService.GetById(TransactionToSave.Product);
+      var Discount = TransactionToSave.Discount;
+      if(Discount == null) return Product.Price;
       else return (decimal) (Product.Price - Product.Price * Discount);
     }
 
