@@ -14,7 +14,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSqlServer<InventariesDbContext>(builder.Configuration.GetConnectionString("Inventaries"));
+builder.Services.AddSqlServer<InventariesDbContext>(
+  builder.Configuration.GetConnectionString("Inventaries"),
+  options => options.EnableRetryOnFailure());
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();

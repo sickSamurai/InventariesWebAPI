@@ -7,6 +7,12 @@ CREATE DATABASE Inventaries;
 
 GO
 
+-- Inventaries.dbo.Category definition
+
+-- Drop table
+
+-- DROP TABLE Inventaries.dbo.Category;
+
 CREATE TABLE Inventaries.dbo.Category (
 	Id varchar(36) COLLATE Modern_Spanish_CI_AS NOT NULL,
 	Name varchar(30) COLLATE Modern_Spanish_CI_AS NOT NULL,
@@ -26,7 +32,6 @@ CREATE TABLE Inventaries.dbo.Category (
 CREATE TABLE Inventaries.dbo.Customer (
 	Id varchar(15) COLLATE Modern_Spanish_CI_AS NOT NULL,
 	Name varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
-	Surname varchar(30) COLLATE Modern_Spanish_CI_AS NOT NULL,
 	Address varchar(100) COLLATE Modern_Spanish_CI_AS NULL,
 	Phone varchar(15) COLLATE Modern_Spanish_CI_AS NULL,
 	Email varchar(50) COLLATE Modern_Spanish_CI_AS NULL,
@@ -45,7 +50,6 @@ CREATE TABLE Inventaries.dbo.Bill (
 	CreationDate date NOT NULL,
 	ExpirationDate date NOT NULL,
 	Total decimal(18,2) NOT NULL,
-	Observations varchar(500) COLLATE Modern_Spanish_CI_AS NULL,
 	Id varchar(36) COLLATE Modern_Spanish_CI_AS NOT NULL,
 	CONSTRAINT Bill_PK PRIMARY KEY (Id),
 	CONSTRAINT Bill_FK FOREIGN KEY (Customer) REFERENCES Inventaries.dbo.Customer(Id)
@@ -81,9 +85,7 @@ CREATE TABLE Inventaries.dbo.[Transaction] (
 	Id varchar(36) COLLATE Modern_Spanish_CI_AS NOT NULL,
 	Bill varchar(36) COLLATE Modern_Spanish_CI_AS NOT NULL,
 	Product varchar(36) COLLATE Modern_Spanish_CI_AS NOT NULL,
-	Discount decimal(18,2) NULL,
 	Units int NOT NULL,
-	UnitPrice decimal(18,2) NOT NULL,
 	Subtotal decimal(18,2) NOT NULL,
 	CONSTRAINT Transaction_PK PRIMARY KEY (Id),
 	CONSTRAINT Transaction_UN UNIQUE (Bill,Product),

@@ -21,10 +21,10 @@ namespace InventariesWebAPI.Services.BillsService.cs {
 
     public async Task<TransactionResults[]> Create(BillToSaveObject Bill) {
       try {
-        var TransactionsResults = await ValidateTransactionsByStockDisponibility(Bill.Transactions);
+        var TransactionsResults = await ValidateTransactions(Bill.Transactions);
 
         foreach(var Result in TransactionsResults)
-          if(!Result.ProductAvailable) return TransactionsResults;
+          if(!Result.ProductAvailable) return Array.Empty<TransactionResults>(); ;
 
         var BillDTO = new Bill { Customer = Bill.Customer, };
 
@@ -63,11 +63,11 @@ namespace InventariesWebAPI.Services.BillsService.cs {
 
     }
 
-    public async Task<TransactionResults[]> ValidateTransactionsByStockDisponibility(TransactionToSaveObject[] Transactions) {
+    public async Task<TransactionResults[]> ValidateTransactions(TransactionToSaveObject[] Transactions) {
       try {
         var TransactionsResults = new List<TransactionResults>();
         foreach(var Transaction in Transactions)
-          TransactionsResults.Add(await TransactionsService.ValidateTransaction(Transaction));
+          TransactionsResults.Add(await TransactionsService.ValidateTransaction(Transaction));        
         return TransactionsResults.ToArray();
       } catch(Exception ex) {
         return Array.Empty<TransactionResults>();
