@@ -5,10 +5,10 @@
   using System.IO;
   using Microsoft.Data.SqlClient;
 
-  public class ScriptLoader {
+  public class DatabaseLoader {
     private IConfiguration Configuration;
     
-    public ScriptLoader(IConfiguration configuration) {
+    public DatabaseLoader(IConfiguration configuration) {
       this.Configuration = configuration;
     }
     

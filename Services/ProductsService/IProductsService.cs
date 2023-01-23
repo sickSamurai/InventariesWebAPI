@@ -1,4 +1,5 @@
-﻿using InventariesWebAPI.Domain.Responses;
+﻿using InventariesWebAPI.Domain.Objects;
+using InventariesWebAPI.Domain.Responses;
 
 namespace InventariesWebAPI.Services.ProductsService {
   public interface IProductsService {
@@ -8,9 +9,9 @@ namespace InventariesWebAPI.Services.ProductsService {
 
     Task<ProductObject> GetById(String Id);
 
-    Task<DbResponse> Create(ProductObject product);
+    Task<DbResponse> Create(ProductToSaveObject product);
     
-    Task<DbResponse> Edit(ProductObject product);    
+    Task<DbResponse> Edit(ProductToSaveObject product);    
 
     Task<DbResponse> Delete(String ProductId);
 

@@ -1,5 +1,6 @@
 ﻿using InventariesWebAPI.Database;
 using InventariesWebAPI.Domain.Entities;
+using InventariesWebAPI.Domain.Objects;
 using InventariesWebAPI.Domain.Responses;
 using InventariesWebAPI.Services.CategoriesService;
 
@@ -16,12 +17,12 @@ namespace InventariesWebAPI.Services.ProductsService {
       CategoriesService = categoriesService;
     }
 
-    public async Task<DbResponse> Create(ProductObject product) {
+    public async Task<DbResponse> Create(ProductToSaveObject product) {
       DbContext.Products.Add(new Product {
         Id = Guid.NewGuid().ToString(),
         Name = product.Name,
         Description = product.Description,
-        Category = product.Category.Id,
+        Category = product.Category,
         Price = product.Price,
         Stock = product.Stock,
         Status = product.Status
@@ -41,13 +42,13 @@ namespace InventariesWebAPI.Services.ProductsService {
       }
     }
 
-    public async Task<DbResponse> Edit(ProductObject product) {
+    public async Task<DbResponse> Edit(ProductToSaveObject product) {
       try {
         DbContext.Products.Update(new Product {
           Id = product.Id,
           Name = product.Name,
           Description = product.Description,
-          Category = product.Category.Id,
+          Category = product.Category,
           Price = product.Price,
           Stock = product.Stock,
           Status = product.Status

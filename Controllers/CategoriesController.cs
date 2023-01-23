@@ -1,11 +1,13 @@
 using InventariesWebAPI.Domain.Responses;
 using InventariesWebAPI.Services.CategoriesService;
 
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventariesWebAPI.Controllers {
   [ApiController]
-  [Route("[controller]")]
+  [Route("api/[controller]")]
+  [EnableCors("MyPolicy")]
   public class CategoriesController : ControllerBase {
     private ICategoriesService CategoriesService;
 

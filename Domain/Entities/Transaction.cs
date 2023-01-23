@@ -10,11 +10,7 @@ namespace InventariesWebAPI.Domain.Entities {
 
     public string Product { get; set; } = "";
 
-    public int Units { get; set; } = 0;
-
-    public decimal? Discount { get; set; }
-
-    public decimal UnitPrice { get; set; } = 0;
+    public int Units { get; set; } = 0;        
 
     public decimal Subtotal { get; set; } = 0;
 

@@ -1,11 +1,13 @@
 ﻿using InventariesWebAPI.Domain.Responses;
 using InventariesWebAPI.Services.CustomerService.cs;
 
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventariesWebAPI.Controllers {
   [ApiController]
-  [Route("[controller]")]
+  [Route("api/[controller]")]
+  [EnableCors("MyPolicy")]
   public class CustomersController: ControllerBase {
     private ICustomerService CustomerService;
     

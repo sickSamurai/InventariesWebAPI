@@ -19,27 +19,27 @@ namespace InventariesWebAPI.Services.TransactionsService {
       try {
         var ProductToSell = await ProductsService.GetById(Transaction.Product);
         ProductToSell.Stock -= Transaction.Units;
-        await ProductsService.Edit(ProductToSell);
-        var UnitPrice = await GetUnitPrice(Transaction);
+
+        await ProductsService.Edit(new ProductToSaveObject {
+          Id = ProductToSell.Id,
+          Description = ProductToSell.Description,
+          Name = ProductToSell.Name,
+          Category = ProductToSell.Category.Id,
+          Price = ProductToSell.Price,
+          Stock = ProductToSell.Stock
+        });
+
         DbContext.Transactions.Add(new Transaction {
           Bill = BillId,
           Product = Transaction.Product,
           Units = Transaction.Units,
-          Discount = Transaction.Discount,
-          UnitPrice = UnitPrice,
-          Subtotal = UnitPrice * Transaction.Units,
+          Subtotal = ProductToSell.Price * Transaction.Units,
         });
+
         return new DbResponse { OperationSuccessful = await DbContext.SaveChangesAsync() != 0 };
       } catch(Exception ex) {
         return new DbResponse { OperationSuccessful = false };
       }
-    }
-
-    public async Task<decimal> GetUnitPrice(TransactionToSaveObject TransactionToSave) {
-      var Product = await ProductsService.GetById(TransactionToSave.Product);
-      var Discount = TransactionToSave.Discount;
-      if(Discount == null) return Product.Price;
-      else return (decimal) (Product.Price - Product.Price * Discount);
     }
 
     public async Task<TransactionObject[]> GetByBillingReference(string BillingReference) {
@@ -50,8 +50,6 @@ namespace InventariesWebAPI.Services.TransactionsService {
         TransactionObjects.Add(new TransactionObject {
           Id = Transaction.Id,
           Units = Transaction.Units,
-          Discount = Transaction.Discount,
-          UnitPrice = Transaction.UnitPrice,
           Product = await ProductsService.GetById(Transaction.Product),
           Subtotal = Transaction.Subtotal
         });

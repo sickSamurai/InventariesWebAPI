@@ -4,11 +4,7 @@
 
     public ProductObject Product { get; set; } = new ProductObject();
 
-    public int Units { get; set; } = 0;
-
-    public decimal? Discount { get; set; } = 0;
-
-    public decimal UnitPrice { get; set; } = 0;
+    public int Units { get; set; } = 0;        
 
     public decimal Subtotal { get; set; } = 0;    
 
