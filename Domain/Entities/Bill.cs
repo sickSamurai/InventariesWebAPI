@@ -12,9 +12,7 @@ namespace InventariesWebAPI.Domain.Entities {
 
     [Required] public DateTime CreationDate { get; set; } = DateTime.Today;
 
-    [Required] public DateTime ExpirationDate { get; set; } = DateTime.Today.AddDays(365);
-
-    public string Observations { get; set; } = "";
+    [Required] public DateTime ExpirationDate { get; set; } = DateTime.Today.AddDays(365);    
 
     [Required] public decimal Total { get; set; } = 0;
 

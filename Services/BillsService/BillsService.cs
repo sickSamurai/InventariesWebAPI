@@ -26,18 +26,16 @@ namespace InventariesWebAPI.Services.BillsService.cs {
         foreach(var Result in TransactionsResults)
           if(!Result.ProductAvailable) return TransactionsResults;
 
-        var BillDTO = new Bill {
-          Observations = Bill.Observations,
-          Customer = Bill.Customer,
-        };
+        var BillDTO = new Bill { Customer = Bill.Customer, };
 
         DbContext.Bills.Add(BillDTO);
 
         foreach(var Transaction in Bill.Transactions)
           await TransactionsService.Add(Transaction, BillDTO.Id);
 
-        foreach(var Transaction in await TransactionsService.GetByBillingReference(BillDTO.Id))
+        foreach(var Transaction in await TransactionsService.GetByBillingReference(BillDTO.Id)) {
           BillDTO.Total += Transaction.Subtotal;
+        }
 
         await DbContext.SaveChangesAsync();
 
@@ -45,7 +43,7 @@ namespace InventariesWebAPI.Services.BillsService.cs {
       } catch(Exception ex) {
         return Array.Empty<TransactionResults>();
       }
-    } 
+    }
 
     public async Task<BillObject[]> GetByCreationDate(DateTime Date) {
       var BillsByDate = new List<BillObject>();
@@ -56,7 +54,6 @@ namespace InventariesWebAPI.Services.BillsService.cs {
           Id = Bill.Id,
           CreationDate = Bill.CreationDate,
           ExpirationDate = Bill.ExpirationDate,
-          Observations = Bill.Observations,
           Transactions = await TransactionsService.GetByBillingReference(Bill.Id),
           Customer = await CustomerService.GetById(Bill.Customer),
           Total = Bill.Total
@@ -76,6 +73,6 @@ namespace InventariesWebAPI.Services.BillsService.cs {
         return Array.Empty<TransactionResults>();
       }
     }
-    
+
   }
 }

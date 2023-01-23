@@ -10,9 +10,7 @@ namespace InventariesWebAPI.Domain.Responses {
 
     public DateTime CreationDate { get; set; } = new DateTime();
 
-    public DateTime ExpirationDate { get; set; } = new DateTime();
-
-    public string Observations { get; set; } = "";
+    public DateTime ExpirationDate { get; set; } = new DateTime();    
 
     public decimal Total { get; set; } = 0;
   }

@@ -7,9 +7,7 @@ namespace InventariesWebAPI.Domain.Entities {
 
     [Key] public string Id { get; set; } ="";
     
-    public string Name { get; set; } = "";
-
-    public string Surname { get; set; } = "";
+    public string Name { get; set; } = "";    
 
     public string? Address { get; set; }
 
